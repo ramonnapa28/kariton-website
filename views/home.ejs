@@ -1,0 +1,611 @@
+<head>
+    <%- include('./partials/header'); -%>
+
+<!-- Image Background -->
+<div id="image-background">
+    <div class="image-overlay">
+        <div class="container">
+            <div class="row justify-content-start align-items-center">
+                <div class="col-lg-6 col-md-12 text-start">
+                    <p class="fs-4 text-white">Welcome to Kariton</p>
+                    <h1 class="display-4 text-white mb-4 animated slideInRight">Scrap Collection Platform</h1>
+                    <div class="d-flex flex-column flex-md-row gap-2">
+                        <a href="https://drive.google.com/file/d/16-POWsBc46olLbjPaN_KTIT3yFT5Z8qo/view?usp=sharing" class="btn animated slideInRight btn-black">Download APK <i class="fab fa-android"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 p-0 text-center mt-4 mt-lg-0">
+                    <img src="img/remove.png" alt="Phone Image" class="img-fluid" style="max-width: 100%; height: auto;">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation Icons -->
+        <div class="navigation-icons">
+            <a href="#" class="nav-icon" id="prev">
+                <i class="fas fa-arrow-left fa-2x"></i> <!-- Back Icon -->
+            </a>
+            <a href="#" class="nav-icon" id="next">
+                <i class="fas fa-arrow-right fa-2x"></i> <!-- Next Icon -->
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+   /* Image Background */
+#image-background {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-image: url('img/homepage-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-overlay h1 {
+    font-size: 70px;
+    color: white; /* Make text color visible over the overlay */
+}
+
+@media (max-width: 768px) {
+    .image-overlay h1 {
+        font-size: 2rem;
+    }
+
+    .image-overlay p {
+        font-size: 1.25rem;
+    }
+}
+
+.custom-image {
+    max-width: 100%; /* Ensure responsive image */
+    height: auto; /* Maintain aspect ratio */
+    transition: opacity 0.5s ease; /* Smooth transition for opacity change */
+    opacity: 0.4; /* Set initial opacity to 70% */
+}
+
+.custom-image:hover {
+    opacity: 1; /* Full opacity on hover */
+}
+
+.fixed-size-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Navigation Icons Below */
+.navigation-icons {
+    position: absolute;
+    bottom: 20px; /* Positioning at the bottom */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Offset to center */
+    display: flex;
+    gap: 20px; /* Spacing between icons */
+    z-index: 10; /* Ensure icons are above the overlay */
+}
+
+.nav-icon {
+    color: white; /* Icon color */
+    text-decoration: none; /* Remove underline from links */
+    background-color: rgba(255, 255, 255, 0.2); /* Light background with transparency */
+    border: 2px solid white; /* White border */
+    border-radius: 50%; /* Circular buttons */
+    padding: 10px; /* Padding for better touch area */
+    transition: all 0.3s ease; /* Smooth transition for all properties */
+    display: flex; /* Center icon vertically and horizontally */
+    align-items: center;
+    justify-content: center;
+    width: 45px; /* Fixed width */
+    height: 45px; /* Fixed height */
+}
+
+.nav-icon:hover {
+    color: rgba(149, 210, 45, 1);
+    background-color: rgba(255, 255, 255, 0.4); /* Slightly darker on hover */
+    transform: scale(1.1); /* Scale up on hover */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Add shadow on hover */
+}
+
+.nav-icon:active {
+    transform: scale(0.95); /* Slightly shrink on click */
+}
+
+
+</style>
+
+
+
+<div class="container-xxl py-5 text-center">
+    <div class="container">
+        <div class="row g-5 align-items-center justify-content-center">
+            <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s">
+                <p class="section-title bg-white text-primary px-3">Schedules</p>
+                <h1 class="mb-4">Barangay Collection for Scrap Pickup</h1>
+                <p class="mb-4">Look up for any available schedule.</p>
+              <!-- Schedule Cards -->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <% collectedData.forEach(data => { %>
+                <div class="col">
+                    <div class="card border-0 recycle-card" style="background-image: url('<%= data.barangay.image %>');">
+                        <div class="card-body-one p-4">
+                            <!-- Barangay Name with Icon -->
+                            <h5 class="card-title text-light mb-3 d-flex align-items-center">
+                                <i class="fas fa-recycle me-3 fs-2" style="color: #28a745;"></i><%= data.barangay.bName %>
+                            </h5>
+
+                            <!-- Schedule Table -->
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-light text-white">
+                                    <thead>
+                                        <tr>
+                                            <th>Day</th>
+                                            <th>Time</th>
+                                            <th>Scrap Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% if (data.sched && data.sched.length > 0) { %>
+                                        <% data.sched.forEach(schedule => { %>
+                                        <tr>
+                                            <td><%= schedule.dayOfWeek %></td>
+                                            <td><%= schedule.startTime %></td>
+                                            <td><%= schedule.scrapType %></td>
+                                        </tr>
+                                        <% }) %>
+                                        <% } else { %>
+                                        <tr>
+                                            <td colspan="3" class="text-center">No current schedule set by this barangay</td>
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+                <!-- Download button -->
+                <button id="downloadPDF" class="btn btn-white mt-4">Generate PDF Report</button>
+
+                <p class="py-3 mt-5 schedule-note" style="color: #333;">
+                    Please note that the available schedule above is subject to change based on the barangay's provided schedule.
+                </p>                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include jsPDF library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- JavaScript to handle PDF download -->
+<script>
+    document.getElementById("downloadPDF").addEventListener("click", function() {
+        const { jsPDF } = window.jspdf;
+
+        const doc = new jsPDF();
+        const tables = document.querySelectorAll('.table');
+
+        tables.forEach((table, index) => {
+            doc.text(`Collection Schedule for Scrap Pickup - Barangay ${table.querySelector('h5').innerText}`, 10, 10 + (index * 100));
+
+            const rows = table.querySelectorAll('tr');
+            const tableData = Array.from(rows).map(row => {
+                return Array.from(row.querySelectorAll('td, th')).map(cell => cell.innerText);
+            });
+
+            doc.autoTable({
+                startY: 20 + (index * 100),
+                head: [[...tableData[0]]], // Table Header
+                body: tableData.slice(1),  // Table Content
+            });
+
+            if (index < tables.length - 1) {
+                doc.addPage();
+            }
+        });
+
+        doc.save('collection_schedule.pdf');
+    });
+</script>
+
+
+<!-- Add responsive handling to the rest of the sections similarly -->
+
+    
+    
+    <!-- Schedule End -->
+     <!-- Features Start -->
+     <div class="container-xxl py-2 text-center">
+        <div class="container-fluid">
+            <div class="row g-5 align-items-center justify-content-center">
+                <div class="col-lg-12">
+                    <p class="section-title bg-white text-primary px-3">Why Us?</p>
+                    <h1 class="mb-4">Experience the Benefits of Efficient Scrap Collection</h1>
+                    <p class="mb-4 text-muted">"We're not just a scrap collection platform; we’re invested in making recycling easier and more impactful. Here’s why people choose us:"</p>
+                    
+                    <div class="accordion-container">
+                        <!-- Accordion Item 1 -->
+                        <div class="accordion-box">
+                            <div class="accordion-image">
+                                <img src="img/efficient-sched.jpg" alt="Efficient Scheduling">
+                            </div>
+                            <div class="accordion-title">Efficient Scheduling</div>
+                            <div class="accordion-details">
+                                We ensure prompt and reliable pickups, making the process seamless and hassle-free for you. We prioritize timely arrangements to fit your needs and maximize convenience.
+                            </div>
+                        </div>
+                        
+                        <!-- Accordion Item 2 -->
+                        <div class="accordion-box">
+                            <div class="accordion-image">
+                                <img src="img/best-scrap.jpg" alt="Best Scrap Rates">
+                            </div>
+                            <div class="accordion-title">Best Scrap Rates</div>
+                            <div class="accordion-details">
+                                We offer competitive pricing for all types of scraps, ensuring you receive the best prices based on the material type.
+                            </div>
+                        </div>
+                        
+                        <!-- Accordion Item 3 -->
+                        <div class="accordion-box">
+                            <div class="accordion-image">
+                                <img src="img/environ-fri.jpg" alt="Environment-Friendly Practices">
+                            </div>
+                            <div class="accordion-title">Environment-Friendly Practices</div>
+                            <div class="accordion-details">
+                                We are committed to environmentally friendly practices, ensuring that scrap materials are processed responsibly.
+                            </div>
+                        </div>
+    
+                        <!-- Accordion Item 4 -->
+                        <div class="accordion-box">
+                            <div class="accordion-image">
+                                <img src="img/com-eng.jpg" alt="Community Engagement">
+                            </div>
+                            <div class="accordion-title">Community Engagement</div>
+                            <div class="accordion-details">
+                                Our platform encourages community involvement in collecting, sorting, selling, and recycling, creating a significant positive impact on the community and environment.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+    <!-- Features End -->
+     
+
+<!-- Banner Start -->
+<div class="container-fluid banner my-5 py-5 bg-green-gradient">
+    <div class="container py-5">
+        <div class="row g-5">
+            <!-- Left Side: Hero Section with Recycle Message -->
+            <div class="col-lg-6 d-flex flex-column justify-content-center align-items-start">
+                <h1 class="text-white display-3 mb-4">Recycle. Earn Points. Redeem!</h1>
+                <p class="text-white mb-4 lead">
+                    Help make a greener world by recycling your waste. Earn points for every recyclable material and trade them for goods or cash. Let’s work together to create a sustainable future!
+                </p>
+                <a href="#" class="btn btn-lg btn-success mt-3">Start Recycling Now</a>
+            </div>
+
+            <!-- Right Side: Scrap Materials and Redeemable Goods Cards -->
+            <div class="col-lg-6">
+                <div class="row g-4">
+                    <!-- Scrap Materials Points Card -->
+                    <div class="col-12 col-md-6">
+                        <div class="card shadow-lg fade-in eco-card">
+                            <h4 class="card-header text-center text-light">Scrap Materials Points</h4>
+                            <div class="card-body p-4">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Material</th>
+                                            <th>Points/Kilo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><i class="icon-aluminum text-primary"></i> Aluminum Can</td>
+                                            <td>5 points</td>
+                                        </tr>
+                                        <tr>
+                                            <td><i class="icon-plastic text-danger"></i> Plastic Bottle</td>
+                                            <td>3 points</td>
+                                        </tr>
+                                        <tr>
+                                            <td><i class="icon-newspaper text-success"></i> Newspaper</td>
+                                            <td>2 points</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Redeemable Goods Card -->
+                    <div class="col-12 col-md-6">
+                        <div class="card shadow-lg fade-in eco-card">
+                            <h4 class="card-header text-center text-light">Redeemable Goods</h4>
+                            <div class="card-body p-4">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Points</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Cup Noodles</td>
+                                            <td>10 points</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Canned Goods</td>
+                                            <td>20 points</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2 Kilos of Rice</td>
+                                            <td>30 points</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Central CTA Section -->
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8 text-center">
+                <h3 class="text-white mb-4">Join the Green Movement</h3>
+                <p class="text-white mb-4 lead">
+                    Recycle your waste, earn valuable points, and get amazing rewards! Your efforts make a difference, and together we can create a cleaner environment.
+                </p>
+                <a href="#" class="btn btn-lg btn-warning">Start Earning Points Now</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Banner End -->
+
+    <!-- Service Start -->
+   <!-- Services Section -->
+   <!-- <section class="services-section py-3">
+    <div class="container">
+      <div class="text-center mx-auto pb-4">
+        <h1 class="section-title">Sorting Procedures</h1>
+        <p class="section-subtitle">A guide that provides instructions for the correct disposal of recyclable scraps and encourages the recycling of scraps.</p>
+      </div>
+      <div class="services-container d-flex flex-wrap justify-content-center">
+        <div class="service-item col-md-4 col-sm-6 col-12 mb-4">
+          <div class="service-icon text-center mt-2">
+            <i class="fas fa-truck-pickup"></i>
+          </div>
+          <div class="service-content">
+            <div class="box">
+              <h5>Collect</h5>
+              <p>Scrap materials are gathered and stored in a specific area, such as a sack or another appropriate container. Furthermore, collecting scraps helps reduce the quantity of waste sent to landfills, which contributes to the large volume of scraps accumulated there.</p>
+            </div>
+          </div>
+        </div>
+        <div class="service-item col-md-4 col-sm-6 col-12 mb-4">
+          <div class="service-icon text-center mt-2">
+            <i class="fas fa-sitemap"></i>
+          </div>
+          <div class="service-content">
+            <div class="box">
+              <h5>Sort</h5>
+              <p>Sorting each type of scrap into its correct category will make the process efficient. Separating the scraps at the time of purchase and placing them into the appropriate storage for each type will save time and make it easier for the barangay and junkshop to manage.</p>
+            </div>
+          </div>
+        </div>
+        <div class="service-item col-md-4 col-sm-6 col-12 mb-4">
+          <div class="service-icon text-center mt-2">
+            <i class="fas fa-money-bill-wave"></i>
+          </div>
+          <div class="service-content">
+            <div class="box">
+              <h5>Sell</h5>
+              <p>When it comes to selling your scrap materials, the barangay will come to collect all your scraps on a daily basis, but the type of scrap collected varies each day, so you need to check the pick-up schedule. Following that, they will buy the scraps at a specified rate for each type.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+    <!-- Service End -->
+    <!-- Content Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+          <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="section-title bg-white text-primary px-3">Find Your Local Junkshop</p>
+            <h1 class="mb-5">Locate Nearby Partners</h1>
+          </div>
+          <div class="row g-4">
+            <% junkshop.forEach(shop => { %>
+                <div class="col-md-4">
+                    <div class="card-item-one card">
+                        <img src="data:image/jpeg;base64,<%= shop.jShopImg %>" class="card-img-top" alt="<%= shop.jShopName %>">
+                        <div class="card-body-two">
+                            <h5 class="card-title"><%= shop.jShopName %></h5>
+                            <p class="card-text"><%= shop.address %>. Contact: <%= shop.phone %>.</p>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+      
+            <!-- Map Container Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Find Local Junkshops on the Map</h2>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed/v1/place?q=National+University+Manila&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8" 
+                width="100%" 
+                height="500" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy"></iframe>
+        </div>
+    </div>
+</div>
+<!-- Map Container End -->
+
+<style>
+    .map-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 100%;
+    }
+    .map-container iframe {
+        border: none;
+        width: 100%;
+        height: 500px; /* Increase height to make it larger */
+    }
+
+    @media (max-width: 768px) {
+        .map-container iframe {
+            height: 350px; /* Adjust height for smaller screens */
+        }
+    }
+</style>
+        </div>
+    </div>
+    <!-- Content End -->
+
+    <!-- Footer Start -->
+    <%- include('./partials/footer'); -%>
+    <!-- Footer End -->
+
+
+    <!-- Copyright Start -->
+    <%- include('./partials/copyright'); -%>
+    <!-- Copyright End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-yellow btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/parallax/parallax.min.js"></script>
+    <script src="lib/lightbox/js/lightbox.min.js"></script>
+<!-- Include jsPDF library -->
+<!-- Include jsPDF and autoTable plugin -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://unpkg.com/jspdf-autotable/dist/jspdf.plugin.autotable.min.js"></script>
+
+<!-- JavaScript to handle PDF download -->
+<script>
+ document.getElementById("downloadPDF").addEventListener("click", function() {
+    const { jsPDF } = window.jspdf;
+
+    // Create a new PDF document
+    const doc = new jsPDF();
+    const tables = document.querySelectorAll('.col-md-6.col-lg-4'); // Each barangay section
+
+    tables.forEach((table, index) => {
+        const barangayName = table.querySelector('h5').innerText; // Extract Barangay name
+        const rows = table.querySelectorAll('tr');
+
+        const tableData = Array.from(rows).map(row => {
+            return Array.from(row.querySelectorAll('td, th')).map(cell => cell.innerText);
+        });
+
+        // If it's not the first barangay, add a new page
+        if (index > 0) {
+            doc.addPage();
+        }
+
+        // Title for each table in the PDF
+        doc.text(`Collection Schedule for Scrap Pickup - ${barangayName}`, 10, 10);
+
+        // Generate the table in PDF format using autoTable
+        doc.autoTable({
+            startY: 20, // Start position for the table on each new page
+            head: [tableData[0]],  // Table Header
+            body: tableData.slice(1),  // Table Content
+            theme: 'grid',  // Optional, adds a grid for the table
+        });
+    });
+
+    // Save the PDF
+    doc.save('collection_schedule.pdf');
+});
+
+// Array of background images
+const backgrounds = [
+        'img/homepage-bg.jpg', // First background
+        'img/second-bg.jpg',   // Second background
+        'img/third-bg.jpg'     // Third background
+    ];
+
+    let currentIndex = 0; // Current index of the background array
+    const intervalTime = 5000; // Time interval for background change (in milliseconds)
+
+    // Function to update the background image
+    function updateBackground() {
+        document.getElementById('image-background').style.backgroundImage = `url('${backgrounds[currentIndex]}')`;
+    }
+
+    // Event listeners for navigation icons
+    document.getElementById('next').addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent default anchor behavior
+        currentIndex = (currentIndex + 1) % backgrounds.length; // Move to next index
+        updateBackground();
+    });
+
+    document.getElementById('prev').addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent default anchor behavior
+        currentIndex = (currentIndex - 1 + backgrounds.length) % backgrounds.length; // Move to previous index
+        updateBackground();
+    });
+
+    // Automatically change the background every intervalTime milliseconds
+    setInterval(function() {
+        currentIndex = (currentIndex + 1) % backgrounds.length; // Move to next index
+        updateBackground();
+    }, intervalTime);
+
+    // Initialize the first background
+    updateBackground();
+</script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>

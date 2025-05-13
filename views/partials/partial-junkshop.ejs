@@ -1,0 +1,237 @@
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+<div class="custom-sidebar" style="padding-top: 80px; justify-content: center; align-items: center; background-color: #0a552a; height: 100vh; position: fixed; width: 300px; border-radius: 5px; box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);">
+  <!-- Brand Logo Section -->
+  <div class="brand-logo" style="text-align: center; margin-bottom: 40px;">
+    <a href="/" class="logo-img">
+      <img src="../img/first-logo.png" width="250" style="opacity: 0.8; border-radius: 10px;" alt="Logo" />
+    </a>
+  </div>
+
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar-nav" data-simplebar="" style="padding-top: 20px;">
+    <ul id="sidebarnav" style="list-style: none; padding: 0;">
+      <!-- Sidebar Item Template -->
+      <li class="sidebar-item" style="margin-bottom: 15px;">
+        <a class="sidebar-link" href="/junkshop/<%=junkshop._id%>" aria-expanded="false" style="
+          color: #ecf0f1;
+          padding: 10px 18px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          transition: background-color 0.3s, transform 0.2s;
+          height: 50px;
+          font-size: 16px;
+        "
+        onmouseover="this.style.backgroundColor='#3b8c4d'; this.style.transform='scale(1.05)';"
+        onmouseout="this.style.backgroundColor=''; this.style.transform='scale(1)';">
+          <i class="fas fa-tachometer-alt" style="font-size: 20px;"></i> <!-- Dashboard Icon -->
+          <span class="hide-menu" style="margin-left: 20px; font-weight: 600; display: flex; align-items: center; height: 100%;">Dashboard</span>
+        </a>
+      </li>
+  
+      <!-- Residents Item -->
+      <li class="sidebar-item" style="margin-bottom: 15px;">
+        <a class="sidebar-link" href="/<%=junkshop._id%>/barangay" aria-expanded="false" style="
+          color: #ecf0f1;
+          padding: 10px 18px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          transition: background-color 0.3s, transform 0.2s;
+          height: 50px;
+          font-size: 16px;
+        "
+        onmouseover="this.style.backgroundColor='#3b8c4d'; this.style.transform='scale(1.05)';"
+        onmouseout="this.style.backgroundColor=''; this.style.transform='scale(1)';">
+          <i class="fas fa-users" style="font-size: 20px;"></i> <!-- Residents Icon -->
+          <span class="hide-menu" style="margin-left: 20px; font-weight: 600; display: flex; align-items: center; height: 100%;">Barangay</span>
+        </a>
+      </li>
+  
+      <!-- Barangay Status Item -->
+      <li class="sidebar-item" style="margin-bottom: 15px;">
+        <a class="sidebar-link" href="/<%=junkshop._id%>/pickup" aria-expanded="false" style="
+          color: #ecf0f1;
+          padding: 10px 18px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          transition: background-color 0.3s, transform 0.2s;
+          height: 50px;
+          font-size: 16px;
+        "
+        onmouseover="this.style.backgroundColor='#3b8c4d'; this.style.transform='scale(1.05)';"
+        onmouseout="this.style.backgroundColor=''; this.style.transform='scale(1)';">
+          <i class="fas fa-building" style="font-size: 20px;"></i> <!-- Barangay Icon -->
+          <span class="hide-menu" style="margin-left: 20px; font-weight: 600; display: flex; align-items: center; height: 100%;">Pickup</span>
+        </a>
+      </li>
+  
+      <!-- Junkshop Status Item -->
+      <li class="sidebar-item" style="margin-bottom: 15px;">
+        <a class="sidebar-link" href="/<%=junkshop._id%>/logs" aria-expanded="false" style="
+          color: #ecf0f1;
+          padding: 10px 18px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          transition: background-color 0.3s, transform 0.2s;
+          height: 50px;
+          font-size: 16px;
+        "
+        onmouseover="this.style.backgroundColor='#3b8c4d'; this.style.transform='scale(1.05)';"
+        onmouseout="this.style.backgroundColor=''; this.style.transform='scale(1)';">
+          <i class="fas fa-warehouse" style="font-size: 20px;"></i> <!-- Junkshop Icon -->
+          <span class="hide-menu" style="margin-left: 20px; font-weight: 600; display: flex; align-items: center; height: 100%;">Transactions</span>
+        </a>
+      </li>
+  
+      
+    </ul>
+  </nav>
+  
+  
+</div>
+
+<style>
+  /* Base Sidebar Styles */
+  .custom-sidebar {
+    padding-top: 80px;
+    justify-content: center;
+    align-items: center;
+    background-color: #2f7a2e;
+    height: 100vh;
+    position: fixed;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+  }
+  
+  .brand-logo {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .logo-img img {
+    width: 250px;
+    opacity: 0.8;
+    border-radius: 10px;
+  }
+  
+  .sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar-item {
+    margin-bottom: 15px;
+  }
+  
+  .sidebar-link {
+    color: #ecf0f1;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  /* Hover effect changed to green */
+  .sidebar-link:hover {
+    background-color: #27ae60; /* Green color */
+  }
+  
+  .sidebar-link i {
+    font-size: 18px;
+    margin-left: 40px;
+  }
+  
+  .hide-menu {
+    margin-left: 15px;
+  }
+
+
+
+  @media (max-width: 1190px) {
+    .custom-sidebar {
+      width: 200px;
+      padding-top: 50px;
+      transform: translateX(-100%); /* Move sidebar off-screen */
+    }
+  
+    .sidebar-link {
+      padding: 8px 15px;
+    }
+  
+    .sidebar-link i {
+      margin-left: 10px;
+      font-size: 16px;
+    }
+  
+    .hide-menu {
+      margin-left: 10px;
+      font-size: 14px;
+    }
+  
+    .brand-logo img {
+      width: 200px;
+    }
+  }
+
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .custom-sidebar {
+      width: 200px;
+      padding-top: 50px;
+      transform: translateX(-100%); /* Move sidebar off-screen */
+      padding-left: 200px; /* Match adjusted sidebar width */
+    }
+  
+    .sidebar-link {
+      padding: 8px 15px;
+    }
+  
+    .sidebar-link i {
+      margin-left: 10px;
+      font-size: 16px;
+    }
+  
+    .hide-menu {
+      margin-left: 10px;
+      font-size: 14px;
+    }
+  
+    .brand-logo img {
+      width: 200px;
+    }
+  }
+
+  
+  
+  @media (max-width: 480px) {
+    .custom-sidebar {
+      width: 150px;
+      height: auto;
+      position: relative;
+      padding: 20px;
+      padding-left: 150px; /* Match adjusted sidebar width */
+    }
+  
+    .sidebar-item {
+      margin-bottom: 10px;
+    }
+  
+    .brand-logo img {
+      width: 150px;
+    }
+  }
+  </style>

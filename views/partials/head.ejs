@@ -1,0 +1,61 @@
+<header class="app-header-one">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <ul class="navbar-nav">
+      <!-- Sidebar Toggle for Mobile -->
+      <li class="nav-item d-block d-xl-none">
+        <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+          <i class="ti ti-menu-2"></i>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Collapsible Navbar Content -->
+    <div class="navbar-collapse justify-content-between px-3" id="navbarNav">
+      <!-- Left Aligned Content (Welcome Message) -->
+      <div class="header-text ms-7 mt-3"> <!-- Added ms-4 for margin-left -->
+        <span>Welcome to Kariton!</span>
+      </div>
+
+      <!-- Right Aligned Content (Profile & Settings) -->
+      <ul class="navbar-nav flex-row ms-auto align-items-center mt-3">
+        <!-- Profile Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="../assets/images/profile/user-1.jpg" alt="User Profile" width="35" height="35" class="rounded-circle profile-icon">
+          </a>
+          <form action="/logout" method="post">
+            <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up text-center" aria-labelledby="profileDropdown">
+              <div class="message-body d-flex justify-content-center">
+                <button class="btn btn-outline-primary mt-2" type="submit">Logout</button>
+              </div>
+            </div>
+          </form>          
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+
+<style>
+  .app-header-one {
+  padding: 20px 15px; /* Increase padding for a larger header */
+  font-size: 1.2rem; /* Adjust base font size for text */
+}
+
+.app-header-one .header-text span {
+  font-size: 2rem; /* Enlarge the welcome message */
+  font-weight: bold; /* Make it stand out */
+  color: #06681e;
+}
+
+.app-header-one .navbar-nav .profile-icon {
+  width: 50px; /* Increase profile image size */
+  height: 50px;
+}
+
+.app-header-one .nav-link.nav-icon-hover i {
+  font-size: 1.5rem; /* Adjust icon size in the sidebar toggle */
+}
+
+</style>

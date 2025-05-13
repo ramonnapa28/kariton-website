@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home | Kariton</title>
+  <link rel="icon" href="img/home-logo.png" type="image/x-icon"/>
+  <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
+  <link rel="stylesheet" href="../assets/css/styles.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS (with Popper.js for modals) -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+</head>
+<style>
+  #eligibleBarangaysList {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  #eligibleBarangaysList th, #eligibleBarangaysList td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  #eligibleBarangaysList th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  #eligibleBarangaysList tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  #eligibleBarangaysList tr:hover {
+    background-color: #f1f1f1;
+  }
+  .notify-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  .notify-button:hover {
+    background-color: #45a049;
+  }
+</style>
+<style>
+    /* Global Styles */
+    body {
+      background-color: #f4f7fc;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container-fluid {
+      max-width: 90%;
+      margin: 0 auto;
+    }
+  .card-body {
+    flex-grow: 1; /* Allow the body to expand and fill remaining space */
+    background-color: #f6f6f6ca; /* Light gray background */
+    border-radius: 2px;
+      padding: 2rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    }
+ /* Card Styling */
+.card {
+  background-color: #d8efd2;;
+  border: none;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+.card:hover {
+    transform: scale(1.05);
+}
+
+  /* Sidebar Container */
+.sidebar-nav {
+    color: #fff; /* White text color */
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Sidebar Links */
+  .sidebar-item a {
+    text-decoration: none;
+    align-items: center;
+    padding: 10px 15px;
+    margin: 5px 0;
+  }
+  
+  /* Sidebar item hover effect */
+  .sidebar-item a:hover {
+    padding-left: 20px; /* Slide effect on hover */
+  }
+  
+  /* Sidebar icons */
+  .sidebar-item i {
+    margin-right: 10px; /* Space between icon and text */
+  }
+  
+ /* Active Sidebar Item */
+.sidebar-item.active a {
+  background: #2d8b37; /* Blue background for active item */
+  padding-left: 20px; /* Slide effect for active items */
+  transition: background-color 0.3s, padding-left 0.3s; /* Smooth transition */
+}
+
+/* Hover Effect on Active Sidebar Item */
+.sidebar-item.active a:hover {
+  background: #2c7d14; /* Darker blue when hovered */
+  padding-left: 25px; /* Slightly more slide effect */
+}
+
+    
+  /* Mobile Responsive Design */
+  @media (max-width: 768px) {
+    .sidebar-nav {
+      width: 200px;
+    }
+  
+    #sidebarnav li {
+      font-size: 14px;
+    }
+  }
+
+  /* General Styling for Header */
+  
+  .navbar-nav .nav-item .nav-link {
+    color: #333;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-icon-hover:hover {
+    color: #007bff; /* Highlight color */
+  }
+  
+  /* Sidebar Toggle Button for Mobile */
+  .sidebartoggler i {
+    font-size: 1.5rem;
+  }
+  
+  /* Header Text Styling */
+  .header-text {
+    padding: 5px 15px;
+    border-radius: 8px;
+    color: #333;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  
+  .header-text span {
+    color: #007bff;
+    font-size: 1.1rem;
+  }
+  
+  /* Profile Dropdown */
+  .profile-icon {
+    transition: transform 0.2s ease;
+  }
+  
+  .profile-icon:hover {
+    transform: scale(1.1);
+  }
+  
+  .dropdown-menu-animate-up {
+    transform: translateY(10px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  
+  .show .dropdown-menu-animate-up {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  .username {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  .btn-outline-primary {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    .header-text {
+      font-size: 0.9rem;
+      padding: 3px 10px;
+    }
+  }
+  .dropdown-menu .message-body {
+    display: flex;
+    justify-content: center; /* Centers the button horizontally */
+    align-items: center; /* Centers the button vertically */
+    height: 100%; /* Ensures the container has a height to center the button */
+}
+
+</style>
+<body>
+  <!-- Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
+    
+    <!-- Sidebar Start -->
+    <div class="left-sidebar">
+      <div><%- include('./partials/partial-junkshop'); -%></div>
+  </div>
+  <!-- Sidebar End -->
+
+    <div class="body-wrapper mb-0">
+      
+      <!-- Header Start -->
+      <div><%- include('./partials/head'); -%></div>
+      <!-- Header End -->
+
+      <div class="container-fluid mb-4">
+        
+       <!-- Eligible Barangays and Scrap Types Section -->
+       <div class="row mb-4">
+        <div class="col-lg-12 d-flex align-items-stretch">
+          <div class="card w-100">
+            <div class="card-body">
+              <h5 class="card-title fw-semibold fs-8">Check Available Barangay for Pickup</h5>
+              <button id="checkEligibleBarangaysBtn" class="btn mt-4" style="background-color: rgb(5, 146, 5); color: white;">Check Available Scraps</button>
+              <table id="eligibleBarangaysList" style="border: 1;">
+                <!-- Table will be populated here -->
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <!-- Barangay Scrap Collection Charts Row -->
+        <div class="row">
+          
+          <!-- Barangay Scrap Collected Chart -->
+          <div class="col-lg-6 d-flex align-items-stretch">
+            <div class="card w-100">
+              <div class="card-body">
+                <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                  <h5 class="card-title fw-semibold fs-8">Barangay Scrap Collected</h5>
+                  <div>
+                    <select class="form-select" id="barangaySelect">
+                      <% collectedData.forEach((data, index) => { %>
+                        <option value="<%= index %>"><%= data.barangay['bName'] %></option>
+                      <% }); %>
+                    </select>
+                  </div>
+                </div>
+                <div id="chart"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Eligible for Scrap Collection Chart -->
+          <div class="col-lg-6 d-flex align-items-stretch">
+            <div class="card w-100">
+              <div class="card-body">
+                <div class="d-sm-flex d-block align-items-center justify-content-between mb-4">
+                  <h5 class="card-title fw-semibold fs-8">Available for Scrap Collection</h5>
+                  <div>
+                    <select class="form-select" id="eligibleBarangaySelect">
+                      <% collectedData.forEach((data, index) => { %>
+                        <option value="<%= index %>"><%= data.barangay['bName'] %></option>
+                      <% }); %>
+                    </select>
+                  </div>
+                </div>
+                <div id="eligibleScrapChart"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Daily Scrap Collection by Barangay and Insights Row -->
+        <div class="row mt-4">
+          
+          <!-- Daily Scrap Collection by Barangay Line Chart -->
+          <div class="col-lg-12 d-flex align-items-stretch">
+            <div class="card w-100">
+              <div class="card-body">
+                <div class="d-sm-flex d-block align-items-center justify-content-between mb-4">
+                  <h5 class="card-title fw-semibold fs-8">Collection by Barangay</h5>
+                  <div>
+                    <select class="form-select mb-2" id="barangayLineSelect">
+                      <% collectDataArray.forEach((data, index) => { %>
+                        <option value="<%= index %>"><%= data.barangayName %></option>
+                      <% }); %>
+                    </select>
+                    <select class="form-select" id="scrapTypeLineSelect">
+                      <!-- Placeholder, dynamically filled based on barangay selection -->
+                    </select>
+                    <button id="generateInsightReportBtn" style="background-color: green; color: white;" class="btn mt-2">Generate Insight Report</button>
+                  </div>
+                </div>
+                <div id="lineChart"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Insights Section -->
+        <div class="row mt-4">
+          <div class="col-lg-12 d-flex align-items-stretch">
+            <div class="card w-100">
+              <div class="card-body">
+                <h5 class="card-title fw-semibold fs-8">Insights</h5>
+                <div id="insightsContent"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div id="collectedData" data-collected="<%= JSON.stringify(collectedData) %>"></div>
+  <div id="collectedLogs" data-collected="<%= JSON.stringify(transactionsPerDay) %>"></div>
+  <div id="scrapsData" data-collected="<%= JSON.stringify(collectDataArray) %>"></div>
+  <script>
+    const dummyDailyScrapData = JSON.parse(document.getElementById('scrapsData').dataset.collected);
+
+    const barangay = JSON.parse(document.getElementById('collectedData').dataset.collected);
+    const monthlyTransactionsData = JSON.parse(document.getElementById('collectedLogs').dataset.collected);
+    var transactionDates = monthlyTransactionsData.map(data => data.date);
+    var transactionCounts = monthlyTransactionsData.map(data => data.count);
+  </script>
+
+  <!-- Functions for Getting Barangay Data and Updating Charts -->
+  <script>
+    function getBarangayData(barangayIndex) {
+      const selectedBarangay = barangay[barangayIndex];
+      const scrapTypes = [...new Set(selectedBarangay.collected.map(c => c.scrapType))].filter(Boolean);
+      const weights = selectedBarangay.collected.map(c => c.weight).filter(Boolean);
+      return { scrapTypes, weights };
+    }
+
+    function updateChartOrShowMessage(barangayData) {
+      if (barangayData.scrapTypes.length === 0 || barangayData.weights.length === 0) {
+        document.querySelector("#chart").innerHTML = "<p>No current data found</p>";
+      } else {
+        chart.updateOptions({
+          xaxis: { categories: barangayData.scrapTypes },
+          series: [{ name: 'Scrap', data: barangayData.weights }]
+        });
+      }
+    }
+  </script>
+
+  <!-- Initial Chart Setup and Event Listeners -->
+  <script>
+    let initialData = getBarangayData(0);
+    var options = {
+      chart: { type: 'bar', height: 350 },
+      colors: ['#008000'], // Green
+      series: [{ name: 'Scrap', data: initialData.weights }],
+      xaxis: { categories: initialData.scrapTypes },
+      yaxis: { labels: { formatter: function (value) { return value + ' kg'; } } }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+    updateChartOrShowMessage(initialData);
+
+    document.getElementById("barangaySelect").addEventListener("change", function () {
+      var selectedBarangayIndex = this.value;
+      var barangayData = getBarangayData(selectedBarangayIndex);
+      updateChartOrShowMessage(barangayData);
+    });
+  </script>
+
+  <!-- Monthly Transaction Chart Setup -->
+  <script>
+    var monthlyOptions = {
+      chart: { type: 'line', height: 350 },
+      series: [{ name: 'Transactions', data: transactionCounts }],
+      colors: ['#008000'], // Green
+      xaxis: {
+        categories: transactionDates,
+        title: { text: 'Date' }
+      },
+      yaxis: {
+        title: { text: 'Number of Transactions' }
+      }
+    };
+
+    var monthlyChart = new ApexCharts(document.querySelector("#monthlyTransactionsChart"), monthlyOptions);
+    monthlyChart.render();
+  </script>
+
+  <!-- Eligible Scrap Data and Chart Update Functions -->
+  <script>
+    function getEligibleScrapDataForBarangay(barangayIndex) {
+      const selectedBarangay = barangay[barangayIndex];
+      const eligibleScrapTypes = [...new Set(selectedBarangay.collected.map(c => c.scrapType))].filter(Boolean);
+      const eligibleWeights = selectedBarangay.collected.map(c => c.eligibleWeight).filter(Boolean);
+      return { eligibleScrapTypes, eligibleWeights };
+    }
+
+    function updateEligibleScrapChart(eligibleData) {
+      if (eligibleData.eligibleScrapTypes.length === 0 || eligibleData.eligibleWeights.length === 0) {
+        document.querySelector("#eligibleScrapChart").innerHTML = "<p>No eligible data found</p>";
+      } else {
+        eligibleScrapChart.updateOptions({
+          xaxis: { categories: eligibleData.eligibleScrapTypes },
+          series: [{ name: 'Eligible Scrap', data: eligibleData.eligibleWeights }]
+        });
+      }
+    }
+
+    let initialEligibleData = getEligibleScrapDataForBarangay(0);
+    var eligibleOptions = {
+      chart: { type: 'bar', height: 350 },
+      series: [{ name: 'Eligible Scrap', data: initialEligibleData.eligibleWeights }],
+      colors: ['#008000'], // Green
+      xaxis: { categories: initialEligibleData.eligibleScrapTypes },
+      yaxis: { labels: { formatter: function (value) { return value + ' kg'; } } }
+    };
+
+    var eligibleScrapChart = new ApexCharts(document.querySelector("#eligibleScrapChart"), eligibleOptions);
+    eligibleScrapChart.render();
+    updateEligibleScrapChart(initialEligibleData);
+
+    document.getElementById("eligibleBarangaySelect").addEventListener("change", function () {
+      var selectedBarangayIndex = this.value;
+      var eligibleData = getEligibleScrapDataForBarangay(selectedBarangayIndex);
+      updateEligibleScrapChart(eligibleData);
+    });
+  </script>
+
+  <!-- Check Eligible Barangays and Notifications -->
+  <script>
+   document.getElementById("checkEligibleBarangaysBtn").addEventListener("click", function () {
+      const threshold = 500;
+      const eligibleBarangaysList = document.getElementById("eligibleBarangaysList");
+      eligibleBarangaysList.innerHTML = "";
+
+      const table = document.createElement("table");
+      table.className = "table table-striped";
+
+
+   // Create table headers
+   const headerRow = document.createElement("tr");
+    headerRow.innerHTML = `
+      <th>Barangay Name</th>
+      <th>Scrap Type</th>
+      <th>Weight (kg)</th>
+      <th>Action</th>
+    `;
+    eligibleBarangaysList.appendChild(headerRow);
+
+    barangay.forEach((b) => {
+      const eligibleScraps = b.collected.filter(c => c.eligibleWeight >= threshold);
+      if (eligibleScraps.length > 0) {
+        eligibleScraps.forEach((scrap) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${b.barangay.bName}</td>
+            <td>${scrap.scrapType}</td>
+            <td>${scrap.eligibleWeight}</td>
+            <td><button class="notify-button" onclick="sendNotification('${b.barangay.bName}', '${scrap.scrapType}', ${scrap.eligibleWeight})">Notify</button></td>
+          `;
+          eligibleBarangaysList.appendChild(row);
+        });
+      }
+    });
+
+    if (eligibleBarangaysList.rows.length === 1) { // Only header row exists
+      const noDataRow = document.createElement("tr");
+      noDataRow.innerHTML = `<td colspan="4">No barangays have scrap types eligible for pickup.</td>`;
+      eligibleBarangaysList.appendChild(noDataRow);
+    }
+  });
+
+    function sendNotification(barangay, scrapType, weight) {
+    const scrapData = [{ barangay, scrapType, weight }];
+
+    fetch("/send-notif", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ scraps: scrapData, usertype: "Barangay" })
+    })
+      .then(response => response.ok ? alert("Notification sent!") : alert("Failed to send notification."))
+      .catch(error => alert("An error occurred: " + error));
+  }
+  </script>
+
+  <!-- Functions for Scrap Type Selection and Line Chart Update -->
+  <script>
+    function getScrapTypesForBarangay(barangayIndex) {
+      return Object.keys(dummyDailyScrapData[barangayIndex].scrapData);
+    }
+
+    function getScrapDataForBarangayAndType(barangayIndex, scrapType) {
+      return dummyDailyScrapData[barangayIndex].scrapData[scrapType];
+    }
+
+    function updateScrapTypeSelect(barangayIndex) {
+      const scrapTypeSelect = document.getElementById("scrapTypeLineSelect");
+      scrapTypeSelect.innerHTML = "";
+      const scrapTypes = getScrapTypesForBarangay(barangayIndex);
+      scrapTypes.forEach(type => {
+        const option = document.createElement("option");
+        option.value = type;
+        option.textContent = type;
+        scrapTypeSelect.appendChild(option);
+      });
+    }
+
+    function updateLineChart(barangayIndex, scrapType) {
+      const scrapData = getScrapDataForBarangayAndType(barangayIndex, scrapType);
+      const dates = Object.keys(scrapData);
+      const weights = Object.values(scrapData);
+
+      lineChart.updateOptions({
+        xaxis: { categories: dates },
+        series: [{ name: scrapType, data: weights }]
+      });
+    }
+  </script>
+
+  <!-- Line Chart Initialization and Insight Generation -->
+  <script>
+    updateScrapTypeSelect(0);
+    let initialScrapType = getScrapTypesForBarangay(0)[0];
+    const initialScrapData = getScrapDataForBarangayAndType(0, initialScrapType);
+    const initialDates = Object.keys(initialScrapData);
+    const initialWeights = Object.values(initialScrapData);
+
+    var lineOptions = {
+      chart: { type: 'line', height: 350 },
+      colors: ['#008000'], // Green
+      series: [{ name: initialScrapType, data: initialWeights }],
+      xaxis: { categories: initialDates, title: { text: 'Date' } },
+      yaxis: { title: { text: 'Collected Weight (kg)' } }
+    };
+
+    var lineChart = new ApexCharts(document.querySelector("#lineChart"), lineOptions);
+    lineChart.render();
+
+    document.getElementById("barangayLineSelect").addEventListener("change", function () {
+      const barangayIndex = this.value;
+      updateScrapTypeSelect(barangayIndex);
+      const selectedScrapType = document.getElementById("scrapTypeLineSelect").value;
+      updateLineChart(barangayIndex, selectedScrapType);
+    });
+
+    document.getElementById("scrapTypeLineSelect").addEventListener("change", function () {
+      const barangayIndex = document.getElementById("barangayLineSelect").value;
+      const selectedScrapType = this.value;
+      updateLineChart(barangayIndex, selectedScrapType);
+    });
+
+    document.getElementById("generateInsightReportBtn").addEventListener("click", function () {
+      const barangayIndex = document.getElementById("barangayLineSelect").value;
+      const selectedScrapType = document.getElementById("scrapTypeLineSelect").value;
+      const weights = Object.values(getScrapDataForBarangayAndType(barangayIndex, selectedScrapType));
+      const barangayName = dummyDailyScrapData[barangayIndex].barangayName;
+      updateInsights(barangayName, selectedScrapType, weights);
+    });
+
+    function updateInsights(barangayName, scrapType, weights) {
+      if (weights.length === 0) {
+        document.getElementById("insightsContent").innerHTML = "<p>No data available for insights.</p>";
+        return;
+      }
+
+      const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
+      const averageWeight = (weights.length > 0) ? (totalWeight / weights.length).toFixed(2) : 0;
+      const highestWeight = Math.max(...weights);
+      const lowestWeight = Math.min(...weights);
+
+      const threshold = 500;
+      const remainingWeight = threshold - totalWeight;
+      const daysToThreshold = (averageWeight > 0) ? Math.ceil(remainingWeight / averageWeight) : 'N/A';
+
+      const insightsContent  = `
+  <table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+ 
+    <tbody>
+      <tr>
+        <td style="border: 1px solid black; padding: 8px;"><strong>Barangay</strong></td>
+        <td style="border: 1px solid black; padding: 8px;">${barangayName}</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid black; padding: 8px;"><strong>Scrap Type</strong></td>
+        <td style="border: 1px solid black; padding: 8px;">${scrapType}</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid black; padding: 8px;"><strong>Total Collected</strong></td>
+        <td style="border: 1px solid black; padding: 8px;">${totalWeight} kg</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid black; padding: 8px;"><strong>Average Daily Collection</strong></td>
+        <td style="border: 1px solid black; padding: 8px;">${averageWeight} kg</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid black; padding: 8px;"><strong>Highest Daily Collection</strong></td>
+        <td style="border: 1px solid black; padding: 8px;">${highestWeight} kg</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid black; padding: 8px;"><strong>Lowest Daily Collection</strong></td>
+        <td style="border: 1px solid black; padding: 8px;">${lowestWeight} kg</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid black; padding: 8px;"><strong>Estimated Days to Reach 5,000 kg Threshold</strong></td>
+        <td style="border: 1px solid black; padding: 8px;">${daysToThreshold} days</td>
+      </tr>
+    </tbody>
+  </table>
+`;
+      document.getElementById("insightsContent").innerHTML = insightsContent;
+    }
+  </script>
+</body>
+</html>

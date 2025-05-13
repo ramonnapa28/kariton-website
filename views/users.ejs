@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Users | Kariton</title>
+  <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
+  <link rel="stylesheet" href="../assets/css/styles.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link rel="icon" href="img/home-logo.png" type="image/x-icon" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.22/jspdf.plugin.autotable.min.js"></script>
+  <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS (with Popper.js for modals) -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
+  <style>
+       /* Global Styles */
+       body {
+      background-color: #f4f7fc;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container-fluid {
+      max-width: 90%;
+      margin: 0 auto;
+    }
+
+    /* Card Styling */
+    .card {
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 10px;
+    }
+
+    .pagination-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .pagination-btn {
+      background-color: #199344;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      font-weight: 500;
+    }
+
+    .pagination-btn:hover {
+      background-color: #28ae4a;
+      transform: scale(1.05);
+    }
+
+    .pagination-btn:disabled {
+      background-color: #b0bec5;
+      cursor: not-allowed;
+    }
+
+    /* Status Indicator Styling */
+    .status-indicator {
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .status-indicator i {
+      margin-right: 5px;
+      font-size: 1.2rem;
+    }
+
+    .status-indicator .pending {
+      color: #ff9800;
+    }
+
+    .status-indicator .approved {
+      color: #4caf50;
+    }
+
+    .status-indicator .rejected {
+      color: #f44336;
+    }
+
+    /* Filter and Form Styling */
+    .custom-select {
+      padding: 10px 20px;
+      font-size: 14px;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      width: 180px;
+      transition: border 0.3s ease;
+    }
+
+    .custom-select:focus {
+      border-color: #5c6bc0;
+    }
+
+    .filter-container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .filter-container label {
+      margin-left: 10px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #444;
+    }
+
+    /* Button Styling */
+    .btn {
+      border-radius: 8px;
+      padding: 8px 15px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      font-weight: 600;
+    }
+
+    .btn-success {
+      background-color: #4caf50;
+      color: #fff;
+    }
+
+    .btn-success:hover {
+      background-color: #388e3c;
+      transform: scale(1.05);
+    }
+
+    .btn-danger {
+      background-color: #f44336;
+      color: #fff;
+    }
+
+    .btn-danger:hover {
+      background-color: #d32f2f;
+      transform: scale(1.05);
+    }
+
+    .btn-primary {
+      background-color: #155b14;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background-color: #20bd4c;
+      transform: scale(1.05);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .filter-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .pagination-wrapper {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  
+  /* Sidebar Links */
+  .sidebar-item a {
+    text-decoration: none;
+    align-items: center;
+    padding: 10px 15px;
+    margin: 5px 0;
+  }
+  
+  /* Sidebar item hover effect */
+  .sidebar-item a:hover {
+    padding-left: 20px; /* Slide effect on hover */
+  }
+  
+  /* Sidebar icons */
+  .sidebar-item i {
+    margin-right: 10px; /* Space between icon and text */
+  }
+ /* Active Sidebar Item */
+.sidebar-item.active a {
+  background: #68c08e; /* Blue background for active item */
+  padding-left: 20px; /* Slide effect for active items */
+  transition: background-color 0.3s, padding-left 0.3s; /* Smooth transition */
+}
+
+/* Hover Effect on Active Sidebar Item */
+.sidebar-item.active a:hover {
+  background: #35d75b; /* Darker blue when hovered */
+  padding-left: 25px; /* Slightly more slide effect */
+}
+
+    
+  /* Mobile Responsive Design */
+  @media (max-width: 768px) {
+    .sidebar-nav {
+      width: 200px;
+    }
+  
+    #sidebarnav li {
+      font-size: 14px;
+    }
+  }
+
+  /* General Styling for Header */
+  
+  .navbar-nav .nav-item .nav-link {
+    color: #333;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-icon-hover:hover {
+    color: #229d33; /* Highlight color */
+  }
+  
+  /* Sidebar Toggle Button for Mobile */
+  .sidebartoggler i {
+    font-size: 1.5rem;
+  }
+  
+  /* Header Text Styling */
+  .header-text {
+    padding: 5px 15px;
+    border-radius: 8px;
+    color: #333;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  
+  .header-text span {
+    color: #007bff;
+    font-size: 1.1rem;
+  }
+  
+  /* Profile Dropdown */
+  .profile-icon {
+    transition: transform 0.2s ease;
+  }
+  
+  .profile-icon:hover {
+    transform: scale(1.1);
+  }
+  
+  .dropdown-menu-animate-up {
+    transform: translateY(10px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  
+  .show .dropdown-menu-animate-up {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  .username {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  .btn-outline-primary {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #29c766;
+    color: #fff;
+  }
+  
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    .header-text {
+      font-size: 0.9rem;
+      padding: 3px 10px;
+    }
+  }
+  .dropdown-menu .message-body {
+    display: flex;
+    justify-content: center; /* Centers the button horizontally */
+    align-items: center; /* Centers the button vertically */
+    height: 100%; /* Ensures the container has a height to center the button */
+}
+/* Card body design */
+.card-body {
+      background-color: #f6f6f6ca; /* Light gray background */
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    }
+
+    /* Title and Download Button Row */
+    .d-flex.justify-content-between.align-items-center.mb-4 {
+      border-bottom: 2px solid #dee2e6; /* Bottom border for separation */
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    .pagination-btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      margin: 0 10px;
+      color: white;
+      background-color: #6c757d; /* Bootstrap's secondary color */
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .pagination-btn:hover {
+      background-color: #5a6268;
+    }
+
+    .pagination-btn:disabled {
+      background-color: #adb5bd;
+      cursor: not-allowed;
+    }
+
+    /* Table Design */
+    .table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .table th, .table td {
+      padding: 12px 15px;
+      border: 1px solid #dee2e6;
+      text-align: left;
+    }
+
+    .table th {
+      background-color: #37775641;
+      font-weight: bold;
+    }
+
+    /* Search Input */
+    #searchInput {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ced4da;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+ /* Card Styling */
+.card {
+    background-color: #d8efd2;
+    border: none;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+
+.card-header {
+    background-color: #14301b;
+    color: #fff;
+    border-bottom: 2px solid #2b3537;
+}
+  /* Sidebar Container */
+.sidebar-nav {
+    color: #fff; /* White text color */
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Sidebar Links */
+  .sidebar-item a {
+    text-decoration: none;
+    align-items: center;
+    padding: 10px 15px;
+    margin: 5px 0;
+  }
+  
+  /* Sidebar item hover effect */
+  .sidebar-item a:hover {
+    padding-left: 20px; /* Slide effect on hover */
+  }
+  
+  /* Sidebar icons */
+  .sidebar-item i {
+    margin-right: 10px; /* Space between icon and text */
+  }
+ /* Active Sidebar Item */
+.sidebar-item.active a {
+  background: #1ebf64; /* Blue background for active item */
+  padding-left: 20px; /* Slide effect for active items */
+  transition: background-color 0.3s, padding-left 0.3s; /* Smooth transition */
+}
+
+/* Hover Effect on Active Sidebar Item */
+.sidebar-item.active a:hover {
+  background: #3dc32e; /* Darker blue when hovered */
+  padding-left: 25px; /* Slightly more slide effect */
+}
+
+    
+  /* Mobile Responsive Design */
+  @media (max-width: 768px) {
+    .sidebar-nav {
+      width: 200px;
+    }
+  
+    #sidebarnav li {
+      font-size: 14px;
+    }
+  }
+
+  /* General Styling for Header */
+  
+  .navbar-nav .nav-item .nav-link {
+    color: #333;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-icon-hover:hover {
+    color: #21c053; /* Highlight color */
+  }
+  
+  /* Sidebar Toggle Button for Mobile */
+  .sidebartoggler i {
+    font-size: 1.5rem;
+  }
+  
+  /* Header Text Styling */
+  .header-text {
+    padding: 5px 15px;
+    border-radius: 8px;
+    color: #333;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  
+  .header-text span {
+    color: #007bff;
+    font-size: 1.1rem;
+  }
+  
+  /* Profile Dropdown */
+  .profile-icon {
+    transition: transform 0.2s ease;
+  }
+  
+  .profile-icon:hover {
+    transform: scale(1.1);
+  }
+  
+  .dropdown-menu-animate-up {
+    transform: translateY(10px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  
+  .show .dropdown-menu-animate-up {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  .username {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  .btn-outline-primary {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #219256;
+    color: #fff;
+  }
+  
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    .header-text {
+      font-size: 0.9rem;
+      padding: 3px 10px;
+    }
+  }
+  .dropdown-menu .message-body {
+    display: flex;
+    justify-content: center; /* Centers the button horizontally */
+    align-items: center; /* Centers the button vertically */
+    height: 100%; /* Ensures the container has a height to center the button */
+}
+
+
+  </style>
+
+<style>
+  /* Table styles */
+  .table-responsive {
+    margin-top: 20px;
+  }
+
+  .resident-card {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #d8efd2;;
+
+  }
+
+  .resident-image {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+  }
+
+  .resident-details {
+    flex-grow: 1;
+  }
+
+  .resident-details p {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+  }
+
+  .resident-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .resident-actions button {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+
+</style>
+</head>
+
+<body>
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6"
+    data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
+
+   <!-- Sidebar Start -->
+    <div class="left-sidebar">
+        <div><%- include('./partials/sidebar'); -%></div>
+    </div>
+    <!-- Sidebar End -->
+
+    <div class="body-wrapper" data-total-users="<%= user.length %>">
+      <div><%- include('./partials/head'); -%></div>
+
+      <div class="container-fluid">
+        <div class="col-lg d-flex align-items-stretch">
+          <div class="card w-100">
+            <div class="card-body p-4">
+              <!-- Title and Download Button Row -->
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="card-title fw-semibold fs-8">List of Residents Registered</h5>
+                <!-- Download Button -->
+                <button class="btn mb-4" style="background-color: green; color: white;" onclick="downloadPDF()">Generate PDF Report</button>
+              </div>
+
+              <!-- Search Field -->
+              <input type="text" id="searchInput" class="form-control mb-3"
+                placeholder="Search Residents..." onkeyup="searchTable()" />
+
+                <div class="table-responsive">
+                  <div id="residentsTable">
+                    <% for (let i in user) { %>
+                    <div class="resident-card">
+                      <img src="<%= user[i].profileImage || 'default-avatar.jpg' %>" alt="Resident Image" class="resident-image">
+                      <div class="resident-details">
+                        <p><strong>Resident ID:</strong> <%= user[i].userID %></p>
+                        <div id="<%= i %>" class="resident-extra-details" style="display: none;">
+                          <p><strong>Email:</strong> <%= user[i].email %></p>
+                          <p><strong>Name:</strong> <%= user[i].fullname %></p>
+                          <p><strong>Phone:</strong> (+63) <%= user[i].phone %></p>
+                          </div>
+                      </div>
+                      <div class="resident-actions">
+                        <button class="btn btn-secondary" onclick="toggleDetails('<%= i %>')">
+                          View Details
+                          <span class="dropdown-icon">&#9660;</span>
+                        </button>
+                        <button class="btn btn-warning" onclick="showDeactivateModal('<%= user[i].userID %>')">Deactivate</button>
+                      </div>
+                    </div>
+                    <% } %>
+                  </div>
+                
+             <!-- Pagination Controls -->
+              <div class="pagination-controls d-flex justify-content-center align-items-center mt-3">
+                <button id="prevPage" class="pagination-btn" onclick="changePage(-1)">Previous</button>
+                <span id="pageInfo" class="fw-semibold mx-2">Page 1</span>
+                <button id="nextPage" class="pagination-btn" onclick="changePage(1)">Next</button>
+              </div>
+            </div>
+
+            <!-- Modal for Deactivation Confirmation -->
+            <div class="modal fade" id="deactivateModal" tabindex="-1" aria-labelledby="deactivateModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="deactivateModalLabel">Deactivate Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Do you want to deactivate this account?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger" onclick="deactivateAccount()">Yes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+  <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/sidebarmenu.js"></script>
+  <script src="../assets/js/app.min.js"></script>
+  <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+  <script>
+    function toggleDetails(detailsId) {
+      const detailsElement = document.getElementById(detailsId);
+      if (detailsElement.style.display === 'none' || detailsElement.style.display === '') {
+        detailsElement.style.display = 'block';
+      } else {
+        detailsElement.style.display = 'none';
+      }
+    }
+  </script>
+  <script>
+    let currentPage = 1;
+    const recordsPerPage = 10;
+    const totalUsers = parseInt(document.querySelector('.body-wrapper').getAttribute('data-total-users'));
+    const totalPages = Math.ceil(totalUsers / recordsPerPage);
+
+    function showPage(page) {
+      const start = (page - 1) * recordsPerPage;
+      const end = start + recordsPerPage;
+      const tableRows = document.querySelectorAll(".resident-card");
+
+      tableRows.forEach((row, index) => {
+        row.style.display = (index >= start && index < end) ? "" : "none";
+      });
+
+      document.getElementById("pageInfo").textContent = `Page ${page} of ${totalPages}`;
+      document.getElementById("prevPage").disabled = page === 1;
+      document.getElementById("nextPage").disabled = page === totalPages;
+    }
+
+    function changePage(direction) {
+      currentPage += direction;
+      if (currentPage < 1) currentPage = 1;
+      if (currentPage > totalPages) currentPage = totalPages;
+      showPage(currentPage);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => showPage(currentPage));
+
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF('landscape');
+      doc.text("List of Residents Registered", 14, 16);
+      doc.autoTable({
+        html: '#residentsTable',
+        startY: 20,
+        headStyles: { fillColor: [52, 152, 219] },
+        theme: 'grid',
+        styles: { fontSize: 10, cellPadding: 2 },
+        margin: { top: 20 },
+      });
+      doc.save('Registered_Residents_List.pdf');
+    }
+
+    function searchTable() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const rows = document.querySelectorAll(".resident-card");
+
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(input) ? "" : "none";
+      });
+    }
+    
+
+
+    // Function to show the deactivate modal with the user ID
+function showDeactivateModal(userID) {
+  // Store the userID in a hidden input or data attribute to use later
+  document.getElementById('deactivateModal').setAttribute('data-user-id', userID);
+  // Show the modal
+  $('#deactivateModal').modal('show');
+}
+
+// Function to handle the deactivation action
+function deactivateAccount() {
+  // Get the userID stored in the modal data attribute
+  const userID = document.getElementById('deactivateModal').getAttribute('data-user-id');
+
+  // Send the deactivation request (e.g., to the backend via AJAX)
+  fetch('/deactivate-user', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userID }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      // Handle success (e.g., reload the table, show success message)
+      alert('Account deactivated successfully!');
+      location.reload();
+    } else {
+      // Handle error
+      alert('Failed to deactivate the account.');
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('Something went wrong.');
+  });
+
+  // Close the modal after the action
+  $('#deactivateModal').modal('hide');
+}
+
+  </script>
+</body>
+
+</html>
